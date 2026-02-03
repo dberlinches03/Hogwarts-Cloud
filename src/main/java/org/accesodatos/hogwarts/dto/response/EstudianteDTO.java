@@ -1,4 +1,6 @@
-package org.accesodatos.hogwarts.dto;
+package org.accesodatos.hogwarts.dto.response;
+
+import org.accesodatos.hogwarts.dto.AsignaturaCalificacionDTO;
 
 import java.time.LocalDate;
 import java.util.List;

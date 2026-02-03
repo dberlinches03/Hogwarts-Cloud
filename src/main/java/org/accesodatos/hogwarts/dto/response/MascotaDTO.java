@@ -1,4 +1,4 @@
-package org.accesodatos.hogwarts.dto;
+package org.accesodatos.hogwarts.dto.response;
 
 public class MascotaDTO {
 

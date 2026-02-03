@@ -1,8 +1,8 @@
 package org.accesodatos.hogwarts.mapper;
 
 import org.accesodatos.hogwarts.dto.AsignaturaCalificacionDTO;
-import org.accesodatos.hogwarts.dto.EstudianteDTO;
-import org.accesodatos.hogwarts.dto.MascotaDTO;
+import org.accesodatos.hogwarts.dto.response.EstudianteDTO;
+import org.accesodatos.hogwarts.dto.response.MascotaDTO;
 import org.accesodatos.hogwarts.model.Student;
 
 import java.util.List;

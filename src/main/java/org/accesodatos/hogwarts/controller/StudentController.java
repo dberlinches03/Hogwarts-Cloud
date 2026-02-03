@@ -1,6 +1,6 @@
 package org.accesodatos.hogwarts.controller;
 
-import org.accesodatos.hogwarts.dto.EstudianteDTO;
+import org.accesodatos.hogwarts.dto.response.EstudianteDTO;
 import org.accesodatos.hogwarts.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

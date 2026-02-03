@@ -1,6 +1,6 @@
 package org.accesodatos.hogwarts.service;
 
-import org.accesodatos.hogwarts.dto.EstudianteDTO;
+import org.accesodatos.hogwarts.dto.response.EstudianteDTO;
 import org.accesodatos.hogwarts.mapper.EstudianteMapper;
 import org.accesodatos.hogwarts.repository.StudentRepository;
 import org.springframework.stereotype.Service;
