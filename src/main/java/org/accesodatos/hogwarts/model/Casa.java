@@ -14,7 +14,7 @@ public class Casa {
     @Column(name = "id_casa")
     private Long idCasa;
 
-    @Column(name = "nombre_casa", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(nullable = false)

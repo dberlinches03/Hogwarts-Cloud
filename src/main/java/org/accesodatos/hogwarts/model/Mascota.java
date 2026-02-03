@@ -12,7 +12,7 @@ public class Mascota {
     @Column(name = "id_mascota")
     private Long idMascota;
 
-    @Column(name = "nombre_mascota", nullable = false)
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
     @Column(nullable = false)
