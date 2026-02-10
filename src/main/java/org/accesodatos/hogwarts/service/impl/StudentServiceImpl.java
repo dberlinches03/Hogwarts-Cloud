@@ -1,5 +1,6 @@
 package org.accesodatos.hogwarts.service.impl;
 
+import lombok.Data;
 import org.accesodatos.hogwarts.dto.request.create.EstudianteCreateDTO;
 import org.accesodatos.hogwarts.dto.request.update.EstudianteUpdateDTO;
 import org.accesodatos.hogwarts.dto.response.EstudianteDTO;
@@ -13,6 +14,7 @@ import org.accesodatos.hogwarts.repository.StudentRepository;
 import org.accesodatos.hogwarts.service.StudentService;
 import org.springframework.stereotype.Service;
 
+@Data
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
@@ -20,11 +22,7 @@ public class StudentServiceImpl implements StudentService {
     private final MascotaRepository mascotaRepository;
     private final EstudianteMapper mapper = new EstudianteMapper();
 
-    public StudentServiceImpl(StudentRepository studentRepo, CasaRepository casaRepo, MascotaRepository mascotaRepo) {
-        this.studentRepository = studentRepo;
-        this.casaRepository = casaRepo;
-        this.mascotaRepository = mascotaRepo;
-    }
+
     @Override
     public EstudianteDTO create(EstudianteCreateDTO dto) {
         Casa casa = casaRepository.findById(dto.getCasaId())
@@ -44,26 +42,20 @@ public class StudentServiceImpl implements StudentService {
     public EstudianteDTO update(Long id, EstudianteUpdateDTO dto) {
         Student estudiante = studentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
+
+
         mapper.updateEntity(estudiante, dto);
-        estudiante = studentRepository.save(estudiante);
 
         if (dto.getMascota() == null) {
-            if (estudiante.getMascota() != null) {
-                mascotaRepository.delete(estudiante.getMascota());
-                estudiante.setMascota(null);
-                studentRepository.save(estudiante);
-            }
+            estudiante.setMascota(null);
+        } else if (estudiante.getMascota() == null) {
+            Mascota nueva = mapper.toMascotaEntity(dto.getMascota(), estudiante);
+            estudiante.setMascota(nueva);
         } else {
-            if (estudiante.getMascota() == null) {
-                Mascota nueva = mapper.toMascotaEntity(dto.getMascota(), estudiante);
-                nueva = mascotaRepository.save(nueva);
-                estudiante.setMascota(nueva);
-                studentRepository.save(estudiante);
-            } else {
-                mapper.updateMascota(estudiante.getMascota(), dto.getMascota());
-                mascotaRepository.save(estudiante.getMascota());
-            }
+            mapper.updateMascota(estudiante.getMascota(), dto.getMascota());
         }
+
+        studentRepository.save(estudiante);
         return mapper.toDTO(estudiante);
     }
 }
