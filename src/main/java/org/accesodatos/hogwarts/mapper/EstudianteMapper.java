@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class EstudianteMapper {
 
-    public EstudianteDTO toDto(Student estudiante) {
+    public EstudianteDTO toDTO(Student estudiante) {
         EstudianteDTO dto = new EstudianteDTO();
         dto.setId(estudiante.getIdEstudiante());
         dto.setNombre(estudiante.getNombre());
@@ -25,16 +25,22 @@ public class EstudianteMapper {
         dto.setFechaNacimiento(estudiante.getFechaNacimiento());
         dto.setCasa(estudiante.getCasa().getNombre());
 
-        if (estudiante.getCasa() != null) {
+        // Mascota puede ser null
+        if (estudiante.getMascota() != null) {
+            Mascota mascota = estudiante.getMascota();
             MascotaDTO mascotaDTO = new MascotaDTO();
-            mascotaDTO.setId(estudiante.getMascota().getIdMascota());
-            mascotaDTO.setNombre(estudiante.getMascota().getNombre());
-            mascotaDTO.setEspecie(estudiante.getMascota().getEspecie());
+            mascotaDTO.setId(mascota.getIdMascota());
+            mascotaDTO.setNombre(mascota.getNombre());
+            mascotaDTO.setEspecie(mascota.getEspecie());
             mascotaDTO.setEstudiante(estudiante.getNombre() + " " + estudiante.getApellido());
             dto.setMascota(mascotaDTO);
+        } else {
+            dto.setMascota(null);
         }
+
         return dto;
     }
+
 
     public Student toEntity(EstudianteCreateDTO dto, Casa casa) {
         Student estudiante = new Student();

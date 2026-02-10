@@ -38,7 +38,7 @@ public class StudentServiceImpl implements StudentService {
             estudiante.setMascota(mascota);
             estudiante = studentRepository.save(estudiante);
         }
-        return mapper.toDto(estudiante);
+        return mapper.toDTO(estudiante);
     }
     @Override
     public EstudianteDTO update(Long id, EstudianteUpdateDTO dto) {
@@ -64,6 +64,6 @@ public class StudentServiceImpl implements StudentService {
                 mascotaRepository.save(estudiante.getMascota());
             }
         }
-        return mapper.toDto(estudiante);
+        return mapper.toDTO(estudiante);
     }
 }

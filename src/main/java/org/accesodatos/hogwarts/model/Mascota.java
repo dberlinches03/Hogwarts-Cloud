@@ -2,7 +2,9 @@ package org.accesodatos.hogwarts.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "Mascota")
 public class Mascota {
@@ -18,19 +20,8 @@ public class Mascota {
     @Column(nullable = false)
     private String especie;
 
-    @OneToOne
+    @OneToOne(optional = true)
     @JoinColumn(name = "id_estudiante")
     @JsonBackReference
     private Student estudiante;
-
-    // Getters y setters
-    public Long getIdMascota() { return idMascota; }
-    public String getNombre() { return nombre; }
-    public String getEspecie() { return especie; }
-    public Student getEstudiante() { return estudiante; }
-
-    public void setIdMascota(Long idMascota) { this.idMascota = idMascota; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public void setEspecie(String especie) { this.especie = especie; }
-    public void setEstudiante(Student estudiante) { this.estudiante = estudiante; }
 }
