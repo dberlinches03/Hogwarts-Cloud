@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.SoftDelete;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@SoftDelete
 @Data
 @Entity
 @Table(name = "Estudiante")

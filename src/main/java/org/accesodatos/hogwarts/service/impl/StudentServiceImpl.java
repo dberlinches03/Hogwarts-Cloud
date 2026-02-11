@@ -1,5 +1,7 @@
 package org.accesodatos.hogwarts.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.Data;
 import org.accesodatos.hogwarts.dto.request.create.EstudianteCreateDTO;
 import org.accesodatos.hogwarts.dto.request.update.EstudianteUpdateDTO;
@@ -14,6 +16,8 @@ import org.accesodatos.hogwarts.repository.StudentRepository;
 import org.accesodatos.hogwarts.service.StudentService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Data
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -24,6 +28,24 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
+    @Transactional
+    public List<EstudianteDTO> findAll() {
+        return studentRepository.findAll()
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public EstudianteDTO findById(Long id) {
+        Student estudiante = studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Estudiante no encontrado con id: " + id));
+        return mapper.toDTO(estudiante);
+    }
+
+    @Override
+    @Transactional
     public EstudianteDTO create(EstudianteCreateDTO dto) {
         Casa casa = casaRepository.findById(dto.getCasaId())
                 .orElseThrow(() -> new IllegalArgumentException("Casa no encontrada"));
@@ -39,6 +61,7 @@ public class StudentServiceImpl implements StudentService {
         return mapper.toDTO(estudiante);
     }
     @Override
+    @Transactional
     public EstudianteDTO update(Long id, EstudianteUpdateDTO dto) {
         Student estudiante = studentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Estudiante no encontrado"));
@@ -57,5 +80,14 @@ public class StudentServiceImpl implements StudentService {
 
         studentRepository.save(estudiante);
         return mapper.toDTO(estudiante);
+    }
+
+    @Override
+    @Transactional
+    public void eliminarEstudiante(Long id) {
+        Student estudiante = studentRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Estudiante no encontrado con id: " + id));
+
+        studentRepository.delete(estudiante); // Soft Delete
     }
 }

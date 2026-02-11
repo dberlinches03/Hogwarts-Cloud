@@ -18,6 +18,15 @@ public class StudentController {
         this.service = service;
     }
 
+    @GetMapping
+    public ResponseEntity<List<EstudianteDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll()); // 200
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EstudianteDTO> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.findById(id)); // 200
+    }
     @PostMapping
     public ResponseEntity<EstudianteDTO> create(@RequestBody EstudianteCreateDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
@@ -25,5 +34,12 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<EstudianteDTO> update(@PathVariable Long id, @RequestBody EstudianteUpdateDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
+    }
+
+    // "Borrado"
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminarEstudiante(@PathVariable Long id) {
+        service.eliminarEstudiante(id);
+        return ResponseEntity.noContent().build(); // 204 No Content
     }
 }
