@@ -36,7 +36,7 @@ public class Student {
     private Casa casa;
 
     // OneToOne con Mascota
-    @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "estudiante", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonManagedReference
     private Mascota mascota;
 

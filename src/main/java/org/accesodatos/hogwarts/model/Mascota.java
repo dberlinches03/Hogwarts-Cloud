@@ -3,7 +3,9 @@ package org.accesodatos.hogwarts.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.SoftDelete;
 
+@SoftDelete
 @Data
 @Entity
 @Table(name = "Mascota")

@@ -88,6 +88,11 @@ public class StudentServiceImpl implements StudentService {
         Student estudiante = studentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Estudiante no encontrado con id: " + id));
 
+        // Si tiene mascota, la eliminamos también (Soft Delete)
+        if (estudiante.getMascota() != null) {
+            mascotaRepository.delete(estudiante.getMascota());
+        }
+
         studentRepository.delete(estudiante); // Soft Delete
     }
 }
