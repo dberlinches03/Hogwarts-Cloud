@@ -40,7 +40,7 @@ public class EstudianteServiceTest {
     }
 
     @Test
-    void eliminarHarry_Exito() {
+    void eliminarEstudiante_Exito() {
         // GIVEN (Preparación del escenario)
         Long id = 1L;
         // Simulamos que el usuario existe
@@ -54,10 +54,5 @@ public class EstudianteServiceTest {
         // Verificamos que se llamó al método delete del repositorio una vez
         verify(mascotaRepository, times(1)).delete(estudianteTest.getMascota());
         verify(estudianteRepository, times(1)).delete(estudianteTest);
-    }
-
-    @Test
-    void eliminarHarry_Error_SinMascota() {
-
     }
 }
