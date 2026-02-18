@@ -28,4 +28,10 @@ public class AsignaturaController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+        service.eliminarAsignatura(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

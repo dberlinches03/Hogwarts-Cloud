@@ -1,5 +1,6 @@
 package org.accesodatos.hogwarts.controller;
 
+import jakarta.validation.Valid;
 import org.accesodatos.hogwarts.dto.request.create.EstudianteCreateDTO;
 import org.accesodatos.hogwarts.dto.request.update.EstudianteUpdateDTO;
 import org.accesodatos.hogwarts.dto.response.EstudianteDTO;
@@ -28,7 +29,7 @@ public class StudentController {
         return ResponseEntity.ok(service.findById(id)); // 200
     }
     @PostMapping
-    public ResponseEntity<EstudianteDTO> create(@RequestBody EstudianteCreateDTO dto) {
+    public ResponseEntity<EstudianteDTO> create(@Valid @RequestBody EstudianteCreateDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
     @PutMapping("/{id}")

@@ -29,4 +29,15 @@ public class AsignaturaService {
         return repo.findById(id)
                 .map(AsignaturaMapper::toDto);
     }
+
+    public void eliminarAsignatura(Long id) {
+        var asignatura = repo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Asignatura no encontrada"));
+        // Si tiene alumnos, no se puede eliminar
+        if (!asignatura.getEstudianteAsignaturas().isEmpty()) {
+            throw new IllegalArgumentException("La asignatura tiene alumnos y no puede eliminarse ");
+        }
+
+        repo.delete(asignatura);
+    }
 }
