@@ -38,4 +38,10 @@ public class GlobalExceptionHandler {
                 errores.put(error.getField(), error.getDefaultMessage()));
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errores);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handleIllegalState(IllegalStateException ex) {
+        // Devolvemos 409 Conflict porque el borrado entra en conflicto en el estado actual de la asignatura (tiene alumnos)
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+    }
 }
