@@ -35,7 +35,7 @@ public class AsignaturaService {
                 .orElseThrow(() -> new IllegalArgumentException("Asignatura no encontrada"));
         // Si tiene alumnos, no se puede eliminar
         if (!asignatura.getEstudianteAsignaturas().isEmpty()) {
-            throw new IllegalArgumentException("La asignatura tiene alumnos y no puede eliminarse ");
+            throw new IllegalStateException("La asignatura tiene alumnos y no puede eliminarse ");
         }
 
         repo.delete(asignatura);
