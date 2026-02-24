@@ -1,5 +1,5 @@
 # Usuamos una imagen base ligera con Java 25
-FROM eclipse-temurin:25-alpine
+FROM eclipse-temurin:21-alpine
 
 # Directiorio de trabajo dentro del contenedor
 WORKDIR /app
