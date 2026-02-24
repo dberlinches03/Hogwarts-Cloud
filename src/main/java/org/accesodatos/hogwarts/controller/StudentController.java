@@ -1,5 +1,8 @@
 package org.accesodatos.hogwarts.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import org.accesodatos.hogwarts.dto.request.create.EstudianteCreateDTO;
 import org.accesodatos.hogwarts.dto.request.update.EstudianteUpdateDTO;
@@ -19,26 +22,59 @@ public class StudentController {
         this.service = service;
     }
 
+
+    // GET ALL
     @GetMapping
+    @Operation(summary = "Obtiene la lista completa de estudiantes de hogwarts")
+    @ApiResponses({
+            @ApiResponse(responseCode="200", description = "Lista de estudiantes obtenida correctamente")
+    })
     public ResponseEntity<List<EstudianteDTO>> findAll() {
         return ResponseEntity.ok(service.findAll()); // 200
     }
 
+    // GET BY ID
     @GetMapping("/{id}")
+    @Operation(summary = "Obtiene un estudiante por su ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Estudiante encontrado"),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+
+    })
     public ResponseEntity<EstudianteDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id)); // 200
     }
+
+    // CREATE
     @PostMapping
+    @Operation(summary = "Crea un nuevo estudiante")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Estudiante creado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos en el DTO")
+    })
     public ResponseEntity<EstudianteDTO> create(@Valid @RequestBody EstudianteCreateDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
+
+    // UPDATE
     @PutMapping("/{id}")
+    @Operation(summary = "Actualiza los datos de un estudiante existente")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Estudiante actualizado correctamente"),
+            @ApiResponse(responseCode = "400", description = "Datos inválidos en el DTO"),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+    })
     public ResponseEntity<EstudianteDTO> update(@PathVariable Long id, @RequestBody EstudianteUpdateDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
-    // "Borrado"
+    // DELETE
     @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina un estudiante por su ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "202", description = "Estudiante eliminado correctamente"),
+            @ApiResponse(responseCode = "404", description = "Estudiante no encontrado")
+    })
     public ResponseEntity<Void> eliminarEstudiante(@PathVariable Long id) {
         service.eliminarEstudiante(id);
         return ResponseEntity.noContent().build(); // 204 No Content
