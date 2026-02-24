@@ -67,4 +67,4 @@ jobs:
           application_name: HogwartsAPI # Tu nombre de App
           environment_name: HogwartsAPI-env # Tu nombre de Entorno
           version_label: "hogwarts-v-${{ github.run_number }}"
-          deployment_package: docker-compose.yml
+          deployment_package: Dockerfile
